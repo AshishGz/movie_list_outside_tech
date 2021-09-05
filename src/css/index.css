@@ -1,0 +1,10 @@
+:root {
+  --title-color: #000;
+  --subtitle-color: #878787;
+}
+
+body {
+  max-width: 600px;
+  margin: auto;
+  display: block;
+}
