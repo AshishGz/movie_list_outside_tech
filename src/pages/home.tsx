@@ -3,6 +3,7 @@ import MovieCard from "../component/movieCard";
 import "../css/home_page.css";
 import { getMovieList } from "../remoteCall/movie_api";
 import { Movie } from "../interfaces/movie";
+import { Link } from "react-router-dom";
 
 const HomePage: FC = (): ReactElement => {
   const [movieList, setMovieList] = useState<Movie[]>([]);
@@ -18,8 +19,15 @@ const HomePage: FC = (): ReactElement => {
   };
   return (
     <div>
-      {movieList.map((item) => (
-        <MovieCard movie={item} />
+      {movieList.map((item, index) => (
+        <Link to="/movie" key={index}>
+          <MovieCard
+            title={item.movieTitle}
+            movieSubTitle={item.movieSubTitle}
+            image={item.movieImage}
+            director={item.movieDirector}
+          />
+        </Link>
       ))}
     </div>
   );

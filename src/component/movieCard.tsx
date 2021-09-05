@@ -1,22 +1,29 @@
-import React, { ReactElement, FC } from "react";
-import { Grid, Paper } from "@material-ui/core";
-import { Movie } from "../interfaces/movie";
+import React, { FC, ReactElement } from "react";
+import { Director } from "../interfaces/movie";
 
 // // define interface to represent component props
 interface Props {
-  movie: Movie;
+  title: string;
+  movieSubTitle: string;
+  image: string;
+  director: Director;
 }
 
-const MovieCard: FC<Props> = ({ movie }): ReactElement => {
+const MovieCard: FC<Props> = ({
+  title,
+  movieSubTitle,
+  image,
+  director,
+}): ReactElement => {
   return (
     <div className="movie_card_wrapper">
       <div className="movie_image_wrapper">
-        <img src={movie.movieImage} />
+        <img src={image} />
       </div>
       <div>
-        <div className="title">{movie.movieTitle}</div>
-        <div className="subtitle">{movie.movieSubTitle}</div>
-        <div className="description">{movie.movieDirectorr}</div>
+        <div className="title">{title}</div>
+        <div className="subtitle">{movieSubTitle}</div>
+        <div className="description">{director.name}</div>
       </div>
     </div>
   );
