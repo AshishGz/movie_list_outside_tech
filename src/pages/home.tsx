@@ -3,10 +3,12 @@ import MovieCard from "../component/movieCard";
 import "../css/home_page.css";
 import { getMovieList } from "../remoteCall/movie_api";
 import { Movie } from "../interfaces/movie";
-import { Link } from "react-router-dom";
 
 const HomePage: FC = (): ReactElement => {
   const [movieList, setMovieList] = useState<Movie[]>([]);
+  const [isFavoriteInProgress, setIsFavoriteInProgress] =
+    useState<boolean>(false);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
 
   useEffect(() => {
     onGetMovieLis();
@@ -17,17 +19,26 @@ const HomePage: FC = (): ReactElement => {
       setMovieList(res);
     });
   };
+
+  const onFavouriteMovie = () => {
+    setIsFavoriteInProgress(true);
+    setTimeout(function () {
+      setIsFavoriteInProgress(false);
+      setShowNotification(true);
+    }, 1000);
+  };
   return (
     <div>
       {movieList.map((item, index) => (
-        <Link to="/movie" key={index}>
+        <div>
           <MovieCard
             title={item.movieTitle}
             movieSubTitle={item.movieSubTitle}
             image={item.movieImage}
-            director={item.movieDirector}
+            director={item.movieDirectorr}
+            description={item.movieDescrription}
           />
-        </Link>
+        </div>
       ))}
     </div>
   );
