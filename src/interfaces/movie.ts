@@ -12,17 +12,3 @@ export interface Movie {
      about:string
  }
 
- export const Default_Director:Director={
-    name:'',
-     image:'',
-     about:''
- }
-
- export const  Default_Movie:Movie={
-    id:'',
-     movieImage:'',
-     movieTitle:'',
-     movieSubTitle:'',
-     movieDescrription:'',
-     movieDirectorr:Default_Director
-}

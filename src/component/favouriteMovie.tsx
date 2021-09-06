@@ -1,12 +1,14 @@
-import React, { ReactElement, FC, useEffect, useState } from "react";
-import MovieCard from "../component/movieCard";
+import React, { ReactElement, FC, useState } from "react";
+
 import "../css/home_page.css";
-import { getMovieDetail, getMovieList } from "../remoteCall/movie_api";
-import { Default_Movie, Movie } from "../interfaces/movie";
-import { Link } from "react-router-dom";
 import { Button, CircularProgress } from "@material-ui/core";
-import { ADD_TO_FAVORITE, ADDED_TO_FAVORITE } from "../util/string";
+import {
+  ADD_TO_FAVORITE,
+  ADDED_TO_FAVORITE,
+  ADDED_TO_FAVORITE_FAILED,
+} from "../util/string";
 import CoustomSnackBar from "../component/coustomSnackBar";
+import { onFavourteMovie } from "../remoteCall/movie_api";
 interface Props {
   title: string;
 }
@@ -14,14 +16,26 @@ interface Props {
 const FavouriteMovie: FC<Props> = ({ title }): ReactElement => {
   const [isFavoriteInProgress, setIsFavoriteInProgress] =
     useState<boolean>(false);
+  const [notificationType, setNotificationType] = useState<string>("success");
   const [showNotification, setShowNotification] = useState<boolean>(false);
+  const [notificationMesssage, setNotificationMessage] = useState<string>(
+    ADDED_TO_FAVORITE.replace("~", title)
+  );
 
   const onFavouriteMovie = () => {
     setIsFavoriteInProgress(true);
-    setTimeout(function () {
-      setIsFavoriteInProgress(false);
-      setShowNotification(true);
-    }, 1000);
+    onFavourteMovie()
+      .then(function (res) {
+        setIsFavoriteInProgress(false);
+        setShowNotification(true);
+        setNotificationType("success");
+      })
+      .catch(function (error) {
+        setIsFavoriteInProgress(false);
+        setShowNotification(true);
+        setNotificationMessage(ADDED_TO_FAVORITE_FAILED.replace("~", title));
+        setNotificationType("error");
+      });
   };
   return (
     <div>
@@ -38,7 +52,8 @@ const FavouriteMovie: FC<Props> = ({ title }): ReactElement => {
       </Button>
       <CoustomSnackBar
         openSnackBar={showNotification}
-        message={ADDED_TO_FAVORITE.replace("~", title)}
+        message={notificationMesssage}
+        type={notificationType}
         onHandleClose={() => setShowNotification(false)}
       />
     </div>

@@ -10,6 +10,7 @@ interface Props {
   openSnackBar: boolean;
   onHandleClose: any;
   message: string;
+  type: any;
 }
 
 function Alert(props: AlertProps) {
@@ -20,6 +21,7 @@ const CoustomSnackBar: FC<Props> = ({
   openSnackBar,
   onHandleClose,
   message,
+  type,
 }): ReactElement => {
   const [open, setOpen] = React.useState(openSnackBar);
 
@@ -50,10 +52,10 @@ const CoustomSnackBar: FC<Props> = ({
           horizontal: "left",
         }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={2000}
         onClose={onHandleClose}
       >
-        <Alert severity="success">{message}</Alert>
+        <Alert severity={type}>{message}</Alert>
       </Snackbar>
     </div>
   );
