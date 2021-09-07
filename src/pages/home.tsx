@@ -1,45 +1,48 @@
-import React, { ReactElement, FC, useEffect, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import MovieCard from "../component/movieCard";
 import "../css/home_page.css";
 import { getMovieList } from "../remoteCall/movie_api";
 import { Movie } from "../interfaces/movie";
+import CustomRenderComponent from "../component/coustomRenderComponent";
+import { APP_STATE } from "../util/config";
 
 const HomePage: FC = (): ReactElement => {
   const [movieList, setMovieList] = useState<Movie[]>([]);
-  const [isFavoriteInProgress, setIsFavoriteInProgress] =
-    useState<boolean>(false);
-  const [showNotification, setShowNotification] = useState<boolean>(false);
+  const [appState, setAppState] = useState<APP_STATE>(APP_STATE.LOADING);
 
   useEffect(() => {
     onGetMovieLis();
   }, []);
 
   const onGetMovieLis = () => {
-    getMovieList().then((res) => {
-      setMovieList(res);
-    });
+    getMovieList()
+      .then((res) => {
+        setMovieList(res);
+        setAppState(APP_STATE.SUCCESS);
+      })
+      .catch(() => setAppState(APP_STATE.ERROR));
   };
 
-  const onFavouriteMovie = () => {
-    setIsFavoriteInProgress(true);
-    setTimeout(function () {
-      setIsFavoriteInProgress(false);
-      setShowNotification(true);
-    }, 1000);
-  };
   return (
     <div>
-      {movieList.map((item, index) => (
-        <div>
-          <MovieCard
-            title={item.movieTitle}
-            movieSubTitle={item.movieSubTitle}
-            image={item.movieImage}
-            director={item.movieDirectorr}
-            description={item.movieDescrription}
-          />
-        </div>
-      ))}
+      <CustomRenderComponent
+        appState={appState}
+        mainComponent={
+          <div>
+            {movieList.map((item, index) => (
+              <div>
+                <MovieCard
+                  title={item.movieTitle}
+                  movieSubTitle={item.movieSubTitle}
+                  image={item.movieImage}
+                  director={item.movieDirectorr}
+                  description={item.movieDescrription}
+                />
+              </div>
+            ))}
+          </div>
+        }
+      />
     </div>
   );
 };
