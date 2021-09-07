@@ -1,24 +1,24 @@
 import React from "react";
-import ReactDOM, { render } from "react-dom";
+import { render, screen } from "@testing-library/react";
 import MovieCard from "../src/component/movieCard";
 import { Director } from "../src/interfaces/movie";
+import ReactDOM from "react-dom";
 
-describe("Movie Card rendred Properly", () => {
-  let container: HTMLDivElement = document.createElement("div");
-  let director: Director = {
+test("renders movie card", () => {
+  let director = {
     name: "",
     image: "",
     about: "",
   };
-
-  ReactDOM.render(
+  render(
     <MovieCard
       title="Movie Title"
       director={director}
       movieSubTitle="subtitle"
       image=""
       description=""
-    />,
-    container
+    />
   );
+  const linkElement = screen.getByText(/subtitle/i);
+  expect(linkElement).toBeInTheDocument();
 });
