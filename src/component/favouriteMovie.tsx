@@ -13,6 +13,8 @@ interface Props {
   title: string;
 }
 
+//this is compnent to favourite movies
+
 const FavouriteMovie: FC<Props> = ({ title }): ReactElement => {
   const [isFavoriteInProgress, setIsFavoriteInProgress] =
     useState<boolean>(false);
@@ -22,6 +24,7 @@ const FavouriteMovie: FC<Props> = ({ title }): ReactElement => {
     ADDED_TO_FAVORITE.replace("~", title)
   );
 
+  //this is fake api which returns success orr failure when movie is marked as fav
   const onFavouriteMovie = () => {
     setIsFavoriteInProgress(true);
     onFavourteMovie()

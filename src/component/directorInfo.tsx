@@ -7,6 +7,9 @@ interface Props {
   onHandleClose: any;
 }
 
+// simple ui takes director Object and display it
+//onclose is need to close modle as this component apperas as child of model
+
 const DirectorInfo: FC<Props> = ({ director, onHandleClose }): ReactElement => {
   return (
     <div className="director">

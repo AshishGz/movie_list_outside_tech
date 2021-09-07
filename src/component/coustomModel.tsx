@@ -8,6 +8,9 @@ interface Props {
   component: ReactElement;
 }
 
+// This is coustom model to be used through out our app,
+// we just need to pass methodToClosse , component inside model and state to open model here
+
 const CustomModel: FC<Props> = ({
   openModel,
   onHandleClose,

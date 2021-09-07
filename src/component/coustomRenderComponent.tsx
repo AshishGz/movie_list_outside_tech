@@ -9,6 +9,9 @@ interface Props {
   mainComponent: any;
 }
 
+// This is wrapper component for all the page for handling app sate
+// here we need to send app state and main component to render in success
+
 const CustomRenderComponent: FC<Props> = ({
   appState,
   mainComponent,

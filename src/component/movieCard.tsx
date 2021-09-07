@@ -13,6 +13,8 @@ interface Props {
   director: Director;
 }
 
+//main card to show movie , info in above interface need to passed here
+
 const MovieCard: FC<Props> = ({
   title,
   movieSubTitle,

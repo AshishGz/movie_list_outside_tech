@@ -17,6 +17,9 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+// This is coustom snack bar used in app,
+// just pass type of bar as (success , error , info or wraning ), close method, messsage and open state
+
 const CoustomSnackBar: FC<Props> = ({
   openSnackBar,
   onHandleClose,
